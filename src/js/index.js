@@ -30,44 +30,45 @@ const options = {
   threshold: 1.0,
 };
 
-const loadMorePhotos = async function (entries, observer) {
-  entries.forEach(async entry => {
-    if (entry.isIntersecting) {
-      observer.unobserve(entry.target);
-      pixaby.incrementPage();
+// const loadMorePhotos = async function (entries, observer) {
+//   entries.forEach(async entry => {
+//     if (entry.isIntersecting) {
+//       observer.unobserve(entry.target);
+//       pixaby.incrementPage();
 
-      spinnerPlay();
+//       spinnerPlay();
 
-      try {
-        spinnerPlay();
+//       try {
+//         spinnerPlay();
 
-        const { hits } = await pixaby.getPhotos();
-        const markup = createMarkup(hits);
-        refs.gallery.insertAdjacentHTML('beforeend', markup);
+//         const { hits, total_pages} = await pixaby.getPhotos();
+//         const markup = createMarkup(hits);
+//         refs.gallery.insertAdjacentHTML('beforeend', markup);
+//         console.log(total_pages);
 
-        // const showMore = pixaby.hasMorePhotos();
-        if (pixaby.hasMorePhotos) {
-          const lastItem = document.querySelector('.gallery a:last-child');
-          observer.observe(lastItem);
-        } else
-          Notify.info(
-            "We're sorry, but you've reached the end of search results.",
-            notifyInit
-          );
+//         // const showMore = pixaby.hasMorePhotos();
+//         if (pixaby.hasMorePhotos) {
+//           const lastItem = document.querySelector('.gallery a:last-child');
+//           observer.observe(lastItem);
+//         } else
+//           Notify.info(
+//             "We're sorry, but you've reached the end of search results.",
+//             notifyInit
+//           );
 
-        modalLightboxGallery.refresh();
-        scrollPage();
-      } catch (error) {
-        Notify.failure(error.message, 'Something went wrong!', notifyInit);
-        clearPage();
-      } finally {
-        spinnerStop();
-      }
-    }
-  });
-};
+//         modalLightboxGallery.refresh();
+//         scrollPage();
+//       } catch (error) {
+//         Notify.failure(error.message, 'Something went wrong!', notifyInit);
+//         clearPage();
+//       } finally {
+//         spinnerStop();
+//       }
+//     }
+//   });
+// };
 
-const observer = new IntersectionObserver(loadMorePhotos, options);
+// const observer = new IntersectionObserver(loadMorePhotos, options);
 
 const onSubmitClick = async event => {
   event.preventDefault();
@@ -110,12 +111,11 @@ const onSubmitClick = async event => {
     Notify.success(`Hooray! We found ${total} images.`, notifyInit);
 
     if (pixaby.hasMorePhotos) {
-      //refs.btnLoadMore.classList.remove('is-hidden');
+      refs.btnLoadMore.classList.remove('is-hidden');
 
-      const lastItem = document.querySelector('.gallery a:last-child');
-      observer.observe(lastItem);
+      // const lastItem = document.querySelector('.gallery a:last-child');
+      // observer.observe(lastItem);
     }
-
     modalLightboxGallery.refresh();
     // scrollPage();
   } catch (error) {

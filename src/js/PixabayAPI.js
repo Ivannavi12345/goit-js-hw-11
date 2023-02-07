@@ -2,7 +2,6 @@ import axios from 'axios';
 
 
 axios.defaults.baseURL = 'https://pixabay.com/api/';
-// axios.defaults.headers.common['Authorization'] = 'Client-ID 28194821-49041d995ecd04735d9e20d11';
 const API_KEY = '33444112-b9b679986a8694d3d30dc25f2';
 
 export class PixabayAPI {
@@ -23,8 +22,7 @@ export class PixabayAPI {
 
 
         const urlAXIOS = `?key=${API_KEY}`;
-        // const urlAXIOS = `?key=${API_KEY}&q=${this.#query}&page=${this.#page}&per_page=${this.#per_page}`;
-
+    
         const { data } = await axios.get(urlAXIOS, { params, });
         return data;
     }
